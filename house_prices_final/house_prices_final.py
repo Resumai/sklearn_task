@@ -197,8 +197,8 @@ def final_eval(model : KNeighborsRegressor | SVR | DecisionTreeRegressor):
 svr = SVR(kernel="linear", C=140)
 
 # >>> DT Model init <<<
-dtr = DecisionTreeRegressor(random_state=42, max_depth=10)
-
+# dtr = DecisionTreeRegressor(random_state=42, max_depth=10)
+# plot_tree(dtr)
 
 cross_val_info(svr)
 # final_eval(svr)
