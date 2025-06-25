@@ -8,7 +8,7 @@ from sklearn.svm import SVR
 from sklearn import tree
 from sklearn.tree import DecisionTreeRegressor
 import matplotlib.pyplot as plt
-
+from sklearn.base import RegressorMixin
 
 # Load data
 df_train = pd.read_csv("house_prices_final/train.csv")
@@ -150,7 +150,7 @@ def plot_tree(dtr : DecisionTreeRegressor):
 
 
 # >>> CROSS-VALIDATION <<<
-def cross_val_info(model : KNeighborsRegressor | SVR | DecisionTreeRegressor):
+def cross_val_info(model : RegressorMixin):
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
     cv_rmse_scores = cross_val_score(model, X_train_scaled, y_train, cv=kf, scoring="neg_root_mean_squared_error")
@@ -177,7 +177,7 @@ def cross_val_info(model : KNeighborsRegressor | SVR | DecisionTreeRegressor):
 
 
 # >>> FINAL-EVAL <<<
-def final_eval(model : KNeighborsRegressor | SVR | DecisionTreeRegressor):
+def final_eval(model : RegressorMixin):
     model.fit(X_train_scaled, y_train)
     y_pred = model.predict(X_test_scaled)
 
@@ -200,5 +200,7 @@ svr = SVR(kernel="linear", C=140)
 # dtr = DecisionTreeRegressor(random_state=42, max_depth=10)
 # plot_tree(dtr)
 
+
+# >>> Execution <<<
 cross_val_info(svr)
 # final_eval(svr)
